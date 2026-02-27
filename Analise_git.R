@@ -20,8 +20,8 @@ base
 
 #Identificando os rótulos das variavel escolaridade e sexo
 
-base$escolaridade <- factor(x = base$escolaridade,
-                            labels = c("Fundamental","Médio","Superior"))
+base$escolaridade <- factor(x = base$escolaridade, #  Escolha da variável
+                            labels = c("Fundamental","Médio","Superior"))   # Rótulos adicionados
 
 base$sexo <- factor(x = base$sexo,
                     labels = c("Feminino", "Masculino"))
@@ -52,9 +52,11 @@ sum(is.na(base))    #Total de dados faltantes
 # Visualização sobre os dados faltantes
 
 vis_miss(x =base) + 
-  labs(y="Linhas", x = "Variáveis", fill ="")+
-  scale_fill_manual(labels = c("Dados Presentes","Dados faltantes"), 
-                    values = c("grey80","Black"))+
+  labs(y="Linhas", x = "Variáveis", fill ="")+  # Rótulo dos eixos 
+  
+  scale_fill_manual(labels = c("Dados Presentes","Dados faltantes"), # Texto da legenda
+                    values = c("grey80","Black"))+  # Cores utilzadas na legenda
+  
   theme(axis.text.x.top = element_text(angle = 90,size= 10))  #Alteração nos rótulos superiores
 
 
@@ -67,8 +69,8 @@ glimpse(base)
 
 gr1 = base|>     
   ggplot(mapping = aes(x = idade)) +       # Definindo o eixo x do gráfico
-  geom_histogram(bins = 7,             # Formato do gráfico e numero de classes do histograma
-                 breaks= c(18,30,40,50,60,70,80),       # Intervalo das classes
+  geom_histogram(bins = 8,             # Formato do gráfico e numero de classes do histograma
+                 breaks= seq(18,100,by = 12),       # Intervalo das classes
                  fill = "blue",    # Cor de preenchimento das barras
                  colour = "black") +   # Cor de contorno
   labs(x="Idade (anos)", y= "Frequência",                    # Rótulos dos eixos
@@ -88,8 +90,10 @@ gr2 =
   labs(y = "Meses",
        title = "Frequência do Tempo em que os detentos se encontram detidos" ) +
   theme_minimal() +
-  theme(axis.text.x = element_blank())+  # Elimina a reta do eixo x
-  theme( panel.grid.major.x = element_blank(),
+  theme(axis.text.x = element_blank())+  # Elimina o texto da reta do eixo x
+  
+  #Elimina as linhas de grade verticais
+  theme( panel.grid.major.x = element_blank(),  
          panel.grid.minor.x = element_blank()) 
 gr2
 
@@ -98,14 +102,14 @@ gr2
 
 gr3 =
   base|> ggplot(mapping = aes(y = score_periculosidade, x = escolaridade, 
-                              fill = escolaridade) ) +
-  geom_boxplot() +
-  scale_fill_brewer(palette = "Blues")+
-  guides (fill = "none")+     #Excluir legenda
-  labs(x = "Escolaridade/ Nível de ensino", y = "Nível de Periculosidade",
-       title = "Score de periculosidade por escolaridade dos detentos")+
+                              fill = escolaridade) ) +                          # Escolha da variável preenchida no boxplot
+  geom_boxplot() +  #  Escolha do gráfico
+  scale_fill_brewer(palette = "Blues")+                                         # Paleta de preenchimento das categorias
+  guides (fill = "none")+                                                       #Exclui legenda
+  labs(x = "Escolaridade/ Nível de ensino", y = "Nível de Periculosidade",      # Rótulos dos eixos
+       title = "Score de periculosidade por escolaridade dos detentos")+        # Título do gráfico
   theme_minimal()+
-  theme(panel.grid.major.x = element_blank())
+  theme(panel.grid.major.x = element_blank())        # Retirando as grades verticais do tema
 
 gr3  
 
@@ -116,19 +120,21 @@ gr4 =
   ggplot(mapping = aes(x = reincidente, y = ..prop..,
                        group = 1)) + # Define a referência do grupo da proporção
   
-  geom_bar(fill = "Darkblue") +
+  geom_bar(fill = "Darkblue") +        #  Cor das barras
   
-  geom_text(aes(label = after_stat(scales:: percent(..prop.., accuracy = 1)),
-                group = 1), 
-            stat = "count",
-            size = 4, 
-            vjust = 1.5, 
-            color = "white")+   # configuração do rotúlo das barras
+  # configuração do rotúlo das barras
+  geom_text(aes(label = after_stat(scales:: percent(..prop..,        # Escala em porcentagem
+                                                    accuracy = 1)),  # Define as casas decimais mostradas
+                        group = 1),     # Unifica todas as categorias para o cálculo sobre o total
+            stat = "count",      # Define o calculo através da frequebcia absoluta  
+            size = 4,            # Tamanho das letras
+            vjust = 1.5,         # Espaçamento em relação à barra
+            color = "white")+    # Cor das letras
   
   labs(y = "Porcentagem", title = "Percentual da presença de Ocorrência de Reincidente", x="")+
   theme_classic()+
-  scale_y_continuous(limits = c(0,1),
-                     breaks = c(0,0.5,1),
-                     labels = scales::percent_format())
+  scale_y_continuous(limits = c(0,1),      #  Intervalo representado no eixo y
+                     breaks = c(0,0.5,1),  #  Intervalos de espaçamento entre os valores da escala
+                     labels = scales::percent_format()) # Definindo escala em porcentagem
 
 gr4
