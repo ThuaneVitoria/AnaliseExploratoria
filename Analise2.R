@@ -118,8 +118,8 @@ dados|> select(all_of(vq)) |>
 medidas =     dados|>
   summarise(across(all_of(vq),                   #  Percorre todas as colunas especificadas por todo o vetor
                    list(                         #  Separa e organiza  os cálculos para a tabela de reumo 
-                     xvariancia = ~var(.x),      #  Nomeia e define o cálculo e aplica para a respectiva coluna
-                     xdesvio = ~sd(.x),
+                     xvariancia = ~round(var(.x),2),      #  Nomeia e define o cálculo e aplica para a respectiva coluna
+                     xdesvio = ~round(sd(.x),2),
                      xamplitude = ~diff(range(.x))    # Calcula a difença entre os valor mínimo e máximo observado              
                    ))) |>
   
@@ -129,4 +129,6 @@ medidas =     dados|>
                 names_sep = "_x")                     # Define o separador entre as linhas e colunas
 
 medidas[1]=NULL       # excliu a primeira coluna da tabela
-rownames(medidas)= c("Idade",'Tempo preso',"Periculosidade")  #Adiciona uma colunas de identificação como os rótulos especificados no vetor
+
+data.frame(medidas)
+rownames(medidas) = c("Idade",'Tempo preso',"Periculosidade")  #Adiciona uma colunas de identificação como os rótulos especificados no vetor

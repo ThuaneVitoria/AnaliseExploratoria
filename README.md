@@ -8,13 +8,13 @@ Este material apresenta uma análise exploratória do conteúdo da base de dados
 
 Com apoio do pacote `naniar`, analisamos a integridade da base através das frequências absolutas e percentuais de dados ausentes. Dentre outras funções aplicadas para o levantamento numérico, utilizamos a função `vis_miss` para gerar uma representação visual de toda estrutura.
 
-A análise confirmou a integridade total da base, apresentando o total de zero dados faltantes. Isso garante que as análises subsequentes não sofrerão distorçoes por ausência de registros.
+A análise confirmou a integridade total da base, apresentando o total de zero dados faltantes. Isso garante que as análises subsequentes não sofrerão distorções por ausência de registros.
 
 ### Idade - Gráfico 1
 
 Com apoio do pacote `ggplot2` para o gráfico usamos o `geom_histogram` para analisar a distribuição etária. A estrutura das classes foi definida com um intervalo de 12 em 12 anos, iniciando aos 18 e terminando com 100 anos como limite superior da última classe.
 
-No gráfico é possível observar que a concentração enontra-se no intervalo entre 30 e 66 anos, sendo a maior frequência registrada na faixa dos 42 aos 54 anos.
+No gráfico é possível observar que a concentração encontra-se no intervalo entre 30 e 66 anos, sendo a maior frequência registrada na faixa dos 42 aos 54 anos.
 
 A partir da quinta classe (66 a 78 anos) nota-se um declínio considerável na quantidade de indivíduos; a partir deste ponto observa-se que quanto a maior idade, menor a ocorrência, resultando na menor ocorrência para os indivíduos acima de 80 anos.
 
@@ -41,6 +41,12 @@ Em contrapartida, o ensino superior manifesta-se como um estrato de convergênci
 Para esta análise, utilizei o `geom_bar` com escala de 50% em 50% no eixo Y e a função `geom_text` para exibir as porcentagens nas barras.
 
 A distribuição da reincidência na amostra revela uma concentração massiva na categoria de primeira ocorrência, que representa 81% dos casos. O gráfico de barras evidencia o contraste entre os dois grupos, mostrando que a parcela de reincidentes é minoritária, correspondendo a apenas 19%. A visualização reforça que, dentro desta base de dados, a ausêcia de reincidência é quatro vezes maior que a sua presença, evidenciando que a grande maioria dos indivíduos não apresenta registros anteriores de retorno ao sistema.
+
+#### Score X Tempo - Gráfico 5
+
+Para a construção deste gráfico de dispersão entre duas variáveis `tempo_preso` e `score_periculosidade`, utilizei a função `geom_point` com uma escolha de opacidade entre os pontos para evidenciar a sobreposição e a densidade das observações. Adicionei uma linha de tendência linear com ajuste de regressão, o que torna explícita a variação da dispersão dos dados ao longo da série.
+
+A interpretação dos resultados mostra uma concentração maior de dados no centro, onde a dispersão diminui, e uma maior volatilidade nos extremos (menores e maiores valores observados). Através da linha de tendência, nota-se uma inclinação linear crescente: quanto maior o tempo em meses, maior o score de periculosidade. Ressalto que a inclinação é sutil, mas confirma a tendência proporcional entre o tempo de cárcere e o índice de periculosidade.
 
 ## Medidas de tendência central e dispersão
 
