@@ -31,6 +31,10 @@ dados$sexo = factor(x = dados$sexo,
 
 v= c("reincidente","filhos","casado")               # vetor com as variáveis a serem modificadas
 
+
+
+
+
 for(i in v){                                        # Loop que percorre o vetor
   dados[[i]] = factor(x = dados[[i]],               # Seleciona os valores da base da coluna de variável i
                       levels = c(0,1),              # Código utilizados na base
@@ -104,6 +108,12 @@ cor
 
 # Criação de vetor com as variáveis para automatização do processo
 vq = c("idade","tempo_preso","score_periculosidade")
+
+
+####  Sumário das variáveis quantitativas
+dados|> select(all_of(vq)) |>
+               summary()
+
 
 medidas =     dados|>
   summarise(across(all_of(vq),                   #  Percorre todas as colunas especificadas por todo o vetor
